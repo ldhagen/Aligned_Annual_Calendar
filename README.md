@@ -2,7 +2,7 @@
 # Calendar Planner
 
 <p align="center">
-  <img src="https://github.com/ldhagen/LinearCalendar/blob/main/assets/Screenshot.png?raw=true" alt="Calendar Screenshot" width="800">
+  <img src="https://github.com/ldhagen/Aligned_Annual_Calendar/blob/main/assets/Screenshot.png?raw=true" alt="Calendar Screenshot" width="800">
 </p>
 
 ---

@@ -1,14 +1,11 @@
-To include the Docker launch details you requested, I have updated the **🚀 Getting Started** and **🐳 Docker Deployment** sections of your `README.md`. These updates provide clear instructions for both a quick one-line launch and a more permanent `docker-compose` setup.
-
+<p align="center">
+<img src="[https://github.com/ldhagen/Aligned_Annual_Calendar/blob/main/assets/Screenshot.png?raw=true](https://github.com/ldhagen/Aligned_Annual_Calendar/blob/main/assets/Screenshot.png?raw=true)" alt="Calendar Screenshot" width="800">
+</p>
 ---
-
 # 📅 Aligned Linear Calendar
 
 A high-performance, React-based web application designed for creating landscape-printable calendars with **perfect vertical weekday alignment**.
 
-<p align="center">
-<img src="[https://github.com/ldhagen/Aligned_Annual_Calendar/blob/main/assets/Screenshot.png?raw=true](https://github.com/ldhagen/Aligned_Annual_Calendar/blob/main/assets/Screenshot.png?raw=true)" alt="Calendar Screenshot" width="800">
-</p>
 
 ## ✨ Features
 

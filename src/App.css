@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inter:wght@300;600&display=swap');
+
+:root { 
+  --cell-w: 32px; 
+  --weekend-bg: #d1d5db; 
+  --today-color: #3b82f6; 
+}
+
+body { margin: 0; background: #fafafa; font-family: 'Inter', sans-serif; }
+
+.toolbar { 
+  display: flex; gap: 1rem; padding: 10px 20px; background: #fff; 
+  border-bottom: 1px solid #ddd; position: sticky; left: 0; top: 0; z-index: 100;
+  width: 100%; box-sizing: border-box; align-items: center;
+}
+
+.toolbar button {
+  padding: 6px 12px; cursor: pointer; background: #fff; border: 1px solid #ccc;
+  border-radius: 4px; font-size: 0.85rem; display: flex; align-items: center; gap: 4px;
+}
+
+.toolbar button:hover { background: #f0f7ff; border-color: var(--today-color); }
+
+.spacer { flex: 1; }
+.group { display: flex; flex-direction: column; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; color: #666; }
+
+.printable-area { background: #fff; padding: 30px; width: fit-content; margin: 0 auto; }
+.title { text-align: center; font-family: 'Dancing Script', cursive; font-size: 3rem; margin: 0 0 15px; }
+
+.month-row { 
+  display: grid; grid-template-columns: 140px 1fr; border-bottom: 1px solid #ccc; height: 70px; 
+}
+
+.month-label { font-family: 'Dancing Script', cursive; font-size: 1.8rem; align-self: center; width: 140px; }
+
+.grid { 
+  display: grid; grid-template-columns: repeat(37, var(--cell-w)); 
+}
+
+.cell { 
+  grid-row: 1; display: flex; flex-direction: column; align-items: center; 
+  border-left: 1px solid #ddd; padding: 4px 0; position: relative; width: var(--cell-w); box-sizing: border-box;
+}
+
+.cell.we { background-color: var(--weekend-bg) !important; border-left: 1px solid #9ca3af; border-right: 1px solid #9ca3af; }
+.cell.we .day-name { color: #111827; font-weight: 800; }
+
+.cell.is-today { outline: 2px solid var(--today-color); outline-offset: -2px; z-index: 5; background-color: #eff6ff !important; }
+.today-indicator { position: absolute; bottom: 4px; width: 4px; height: 4px; background: var(--today-color); border-radius: 50%; }
+
+.day-name { font-size: 0.5rem; color: #888; }
+.num { font-size: 0.85rem; font-weight: 700; }
+.txt { font-size: 0.6rem; font-weight: 600; text-align: center; margin-top: 2px; line-height: 1; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+@media print {
+  @page { size: landscape; margin: 10mm; }
+  .no-print, .toolbar { display: none !important; }
+  .printable-area { transform: scale(1); width: 100%; }
+}

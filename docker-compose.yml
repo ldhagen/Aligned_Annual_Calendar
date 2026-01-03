@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  calendar:
+    image: your-docker-user/linear-calendar:latest
+    container_name: linear-calendar
+    ports:
+      - "3000:80"
+    restart: always

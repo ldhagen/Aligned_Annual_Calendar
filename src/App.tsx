@@ -2,8 +2,6 @@ import { useRef } from 'react';
 import { useCalendarStore } from './store';
 import './App.css';
 
-const TEXTS = ["", "Holiday", "Work", "Deadline", "Birthday", "Vacation"];
-
 export default function App() {
   const s = useCalendarStore();
   const fileRef = useRef<HTMLInputElement>(null);
@@ -37,13 +35,25 @@ export default function App() {
             <option value="eyedropper">🧪 Eyedropper</option>
           </select>
         </div>
+        
         {s.activeMode === 'text' && (
-           <select value={s.selectedText} onChange={e => s.setSelectedText(e.target.value)}>
-             {TEXTS.map(t => <option key={t} value={t}>{t || "Clear"}</option>)}
-           </select>
+          <div className="group">
+            <label>Stamp Text</label>
+            <input 
+              type="text" 
+              placeholder="Type label here..."
+              value={s.customText} 
+              onChange={e => s.setCustomText(e.target.value)}
+              className="text-input"
+            />
+          </div>
         )}
+
         {s.activeMode === 'color' && (
-          <input type="color" value={s.selectedColor} onChange={e => s.setSelectedColor(e.target.value)} />
+          <div className="group">
+            <label>Color</label>
+            <input type="color" value={s.selectedColor} onChange={e => s.setSelectedColor(e.target.value)} />
+          </div>
         )}
         
         <div className="spacer" />
@@ -93,14 +103,21 @@ function DayCell({ date, col }: { date: Date, col: number }) {
   const key = date.toISOString().split('T')[0];
   const isWE = date.getDay() === 0 || date.getDay() === 6;
   const data = s.customizations[key] || { text: '', color: '' };
-  const isToday = date.toDateString() === new Date().toDateString();
+  
+  const today = new Date();
+  const isToday = date.getFullYear() === today.getFullYear() &&
+                  date.getMonth() === today.getMonth() &&
+                  date.getDate() === today.getDate();
 
   const onDBL = () => {
     if (s.activeMode === 'eyedropper') {
       s.setSelectedColor(data.color || (isWE ? '#d1d5db' : '#ffffff'));
       s.setMode('color');
-    } else if (s.activeMode === 'text') s.updateDay(key, { text: s.selectedText });
-    else s.updateDay(key, { color: s.selectedColor });
+    } else if (s.activeMode === 'text') {
+      s.updateDay(key, { text: s.customText });
+    } else {
+      s.updateDay(key, { color: s.selectedColor });
+    }
   };
 
   return (
@@ -108,6 +125,7 @@ function DayCell({ date, col }: { date: Date, col: number }) {
       className={`cell ${isWE ? 'we' : ''} ${isToday ? 'is-today' : ''}`} 
       style={{ gridColumn: col, backgroundColor: data.color }} 
       onDoubleClick={onDBL}
+      title={data.text || undefined}
     >
       <span className="day-name">{date.toLocaleDateString('en-US', { weekday: 'short' }).charAt(0)}</span>
       <span className="num">{date.getDate()}</span>

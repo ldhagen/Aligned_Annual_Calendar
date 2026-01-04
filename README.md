@@ -33,7 +33,7 @@ docker run -d \
   --name linear-calendar \
   -p 3000:80 \
   --restart always \
-  YOUR_DOCKER_USERNAME/linear-calendar:latest
+  ldhagen/linear-calendar:latest
 
 ```
 
@@ -43,7 +43,7 @@ docker run -d \
 version: '3.8'
 services:
   calendar:
-    image: YOUR_DOCKER_USERNAME/linear-calendar:latest
+    image: ldhagen/linear-calendar:latest
     container_name: linear-calendar
     ports:
       - "3000:80"

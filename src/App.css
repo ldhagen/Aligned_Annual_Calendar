@@ -44,6 +44,8 @@ body { margin: 0; background: #fafafa; font-family: 'Inter', sans-serif; }
 .cell { 
   grid-row: 1; display: flex; flex-direction: column; align-items: center; 
   border-left: 1px solid #ddd; padding: 4px 0; position: relative; width: var(--cell-w); box-sizing: border-box;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
 }
 
 .cell.is-today { 
@@ -63,6 +65,32 @@ body { margin: 0; background: #fafafa; font-family: 'Inter', sans-serif; }
 .txt { 
   font-size: 0.6rem; font-weight: 600; text-align: center; margin-top: 2px; 
   line-height: 1; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* Legend Styling */
+.legend-container {
+  margin-top: 40px; padding-top: 20px; border-top: 2px solid #eee;
+}
+
+.legend-title {
+  font-family: 'Dancing Script', cursive; font-size: 1.5rem; margin-bottom: 15px; color: #444;
+}
+
+.legend-grid {
+  display: flex; flex-wrap: wrap; gap: 20px;
+}
+
+.legend-item {
+  display: flex; align-items: center; gap: 10px; min-width: 120px;
+}
+
+.legend-swatch {
+  width: 24px; height: 24px; border: 1px solid #ddd; border-radius: 4px;
+  print-color-adjust: exact; -webkit-print-color-adjust: exact;
+}
+
+.legend-text {
+  font-size: 0.85rem; font-weight: 600; color: #333;
 }
 
 @media print {

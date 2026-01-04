@@ -74,6 +74,36 @@ export default function App() {
       <div className="printable-area">
         <h1 className="title">· {s.year} ·</h1>
         {months.map(m => <MonthRow key={m} month={m} year={s.year} />)}
+        <CalendarLegend />
+      </div>
+    </div>
+  );
+}
+
+function CalendarLegend() {
+  const { customizations } = useCalendarStore();
+  
+  // Aggregate unique color/text entries to form the legend
+  const entries = Object.values(customizations).reduce((acc, curr) => {
+    const id = `${curr.color}-${curr.text}`;
+    if ((curr.text || curr.color) && !acc.find(e => `${e.color}-${e.text}` === id)) {
+      acc.push(curr);
+    }
+    return acc;
+  }, [] as { text: string; color: string }[]);
+
+  if (entries.length === 0) return null;
+
+  return (
+    <div className="legend-container">
+      <h3 className="legend-title">Legend</h3>
+      <div className="legend-grid">
+        {entries.map((entry, i) => (
+          <div key={i} className="legend-item">
+            <div className="legend-swatch" style={{ backgroundColor: entry.color || '#fff' }} />
+            <span className="legend-text">{entry.text || '(No Label)'}</span>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -3,8 +3,8 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/', // Use '/' for root subdomains
   server: {
-    host: true // Maintains support for Docker environments
+    host: true, // Necessary for Docker/Portainer access
+    port: 3000
   }
 })

@@ -35,6 +35,23 @@ body { margin: 0; background: #fafafa; font-family: 'Inter', sans-serif; }
   display: grid; grid-template-columns: 140px 1fr; border-bottom: 1px solid #ccc; height: 70px; 
 }
 
+/* Header Specific Styles */
+.header-row {
+  height: 30px;
+  border-bottom: 2px solid #444;
+  margin-bottom: 10px;
+}
+
+.header-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #444;
+  width: var(--cell-w);
+}
+
 .month-label { font-family: 'Dancing Script', cursive; font-size: 1.8rem; align-self: center; width: 140px; }
 
 .grid { 
@@ -60,8 +77,11 @@ body { margin: 0; background: #fafafa; font-family: 'Inter', sans-serif; }
 }
 
 .cell.we { background-color: var(--weekend-bg) !important; border-left: 1px solid #9ca3af; border-right: 1px solid #9ca3af; }
-.day-name { font-size: 0.5rem; color: #888; }
-.num { font-size: 0.85rem; font-weight: 700; }
+
+/* Hide redundant day labels inside cells */
+.day-name { display: none; }
+
+.num { font-size: 0.85rem; font-weight: 700; margin-top: 4px; }
 .txt { 
   font-size: 0.6rem; font-weight: 600; text-align: center; margin-top: 2px; 
   line-height: 1; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;

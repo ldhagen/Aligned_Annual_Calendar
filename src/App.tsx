@@ -73,8 +73,28 @@ export default function App() {
 
       <div className="printable-area">
         <h1 className="title">· {s.year} ·</h1>
+        
+        {/* New Weekday Header Row */}
+        <WeekdayHeader />
+
         {months.map(m => <MonthRow key={m} month={m} year={s.year} />)}
         <CalendarLegend />
+      </div>
+    </div>
+  );
+}
+
+function WeekdayHeader() {
+  const weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+  return (
+    <div className="month-row header-row">
+      <div className="month-label"></div> 
+      <div className="grid">
+        {Array.from({ length: 37 }).map((_, i) => (
+          <div key={i} className="header-cell">
+            {weekdays[i % 7]}
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -83,7 +103,6 @@ export default function App() {
 function CalendarLegend() {
   const { customizations } = useCalendarStore();
   
-  // Aggregate unique color/text entries to form the legend
   const entries = Object.values(customizations).reduce((acc, curr) => {
     const id = `${curr.color}-${curr.text}`;
     if ((curr.text || curr.color) && !acc.find(e => `${e.color}-${e.text}` === id)) {
@@ -157,7 +176,6 @@ function DayCell({ date, col }: { date: Date, col: number }) {
       onDoubleClick={onDBL}
       title={data.text || undefined}
     >
-      <span className="day-name">{date.toLocaleDateString('en-US', { weekday: 'short' }).charAt(0)}</span>
       <span className="num">{date.getDate()}</span>
       <div className="txt">{data.text}</div>
       {isToday && <div className="today-indicator" />}

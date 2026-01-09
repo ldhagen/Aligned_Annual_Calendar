@@ -1,10 +1,11 @@
 <?php
 /**
  * Aligned Calendar - Premium Gatekeeper
- * Version: 2.0 (30-Day Persistent Access)
+ * Version: 2.1 (Updated to check multiple key stores)
  */
 
 $key_file = 'keys.txt';
+$issued_key_file = 'issued_keys.txt';
 $cookie_name = "aligned_cal_access";
 $access_duration = time() + (86400 * 30); // 30 days in seconds
 
@@ -18,13 +19,22 @@ if (isset($_COOKIE[$cookie_name]) && $_COOKIE[$cookie_name] === 'unlocked') {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['access_key'])) {
     $user_input = strtoupper(trim($_POST['access_key']));
     
-    // Load keys from file
-    $valid_keys = [];
+    // Load available keys from keys.txt
+    $available_keys = [];
     if (file_exists($key_file)) {
-        $valid_keys = array_filter(array_map('trim', file($key_file)));
+        $available_keys = array_filter(array_map('trim', file($key_file)));
     }
 
-    if (in_array($user_input, $valid_keys)) {
+    // Load issued keys from issued_keys.txt
+    $issued_keys = [];
+    if (file_exists($issued_key_file)) {
+        $issued_keys = array_filter(array_map('trim', file($issued_key_file)));
+    }
+
+    // Combine both lists so the key remains valid after being moved
+    $all_valid_keys = array_merge($available_keys, $issued_keys);
+
+    if (in_array($user_input, $all_valid_keys)) {
         // Set a 30-day cookie
         setcookie($cookie_name, 'unlocked', $access_duration, "/");
         $is_authenticated = true;

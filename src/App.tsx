@@ -74,10 +74,10 @@ export default function App() {
       <div className="printable-area">
         <h1 className="title">· {s.year} ·</h1>
         
-        {/* New Weekday Header Row */}
         <WeekdayHeader />
 
         {months.map(m => <MonthRow key={m} month={m} year={s.year} />)}
+        
         <CalendarLegend />
       </div>
     </div>
@@ -91,7 +91,11 @@ function WeekdayHeader() {
       <div className="month-label"></div> 
       <div className="grid">
         {Array.from({ length: 37 }).map((_, i) => (
-          <div key={i} className="header-cell">
+          <div 
+            key={i} 
+            className="header-cell"
+            style={{ gridColumn: i + 1 }}
+          >
             {weekdays[i % 7]}
           </div>
         ))}

@@ -115,7 +115,7 @@ if ($is_authenticated) {
 </head>
 <body>
     <div class="login-card">
-        <img src="assets/logo.png" alt="Aligned Calendar Logo" class="logo">
+        <img src="/assets/logo.png" alt="Aligned Calendar Logo" class="logo">
         <h1>Welcome Back</h1>
         <p>Enter your premium key to unlock your calendar.</p>
         

@@ -18,7 +18,7 @@ export default function App() {
   };
 
   return (
-    <div className="app-container" data-mode={s.activeMode}>
+    <div className="app-container" data-mode={s.activeMode} data-layout={s.printLayout}>
       <style>{`
         @media print {
           @page { size: ${s.printLayout === 'single' ? 'landscape' : 'portrait'}; }

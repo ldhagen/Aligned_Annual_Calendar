@@ -5,7 +5,6 @@ import './App.css';
 export default function App() {
   const s = useCalendarStore();
   const fileRef = useRef<HTMLInputElement>(null);
-  const months = Array.from({ length: 12 }, (_, i) => i);
 
   const handleExport = () => {
     const dataStr = JSON.stringify(s.customizations, null, 2);
@@ -20,11 +19,23 @@ export default function App() {
 
   return (
     <div className="app-container" data-mode={s.activeMode}>
+      <style>{`
+        @media print {
+          @page { size: ${s.printLayout === 'single' ? 'landscape' : 'portrait'}; }
+        }
+      `}</style>
       <div className="toolbar no-print">
         <div className="group">
           <label>Year</label>
           <select value={s.year} onChange={e => s.setYear(Number(e.target.value))}>
             {[2025, 2026, 2027, 2028].map(y => <option key={y} value={y}>{y}</option>)}
+          </select>
+        </div>
+        <div className="group">
+          <label>Layout</label>
+          <select value={s.printLayout} onChange={e => s.setPrintLayout(e.target.value as any)}>
+            <option value="single">Single Page</option>
+            <option value="double">2-Page Split</option>
           </select>
         </div>
         <div className="group">
@@ -71,34 +82,60 @@ export default function App() {
         />
       </div>
 
-      <div className="printable-area">
-        <h1 className="title">· {s.year} ·</h1>
-        
-        <WeekdayHeader />
-
-        {months.map(m => <MonthRow key={m} month={m} year={s.year} />)}
-        
-        <CalendarLegend />
-      </div>
+      {s.printLayout === 'single' ? (
+        <div className="printable-area">
+          <h1 className="title">· {s.year} ·</h1>
+          <CalendarTable year={s.year} start={1} end={37} />
+          <CalendarLegend />
+        </div>
+      ) : (
+        <>
+          <div className="printable-area page-break">
+            <h1 className="title">· {s.year} ·</h1>
+            <CalendarTable year={s.year} start={1} end={19} />
+          </div>
+          <div className="printable-area">
+            <h1 className="title">· {s.year} ·</h1>
+            <CalendarTable year={s.year} start={20} end={37} />
+            <CalendarLegend />
+          </div>
+        </>
+      )}
     </div>
   );
 }
 
-function WeekdayHeader() {
+function CalendarTable({ year, start, end }: { year: number, start: number, end: number }) {
+  const months = Array.from({ length: 12 }, (_, i) => i);
+  return (
+    <>
+      <WeekdayHeader start={start} end={end} />
+      {months.map(m => <MonthRow key={m} month={m} year={year} start={start} end={end} />)}
+    </>
+  );
+}
+
+function WeekdayHeader({ start, end }: { start: number, end: number }) {
   const weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+  const count = end - start + 1;
+  
   return (
     <div className="month-row header-row">
       <div className="month-label"></div> 
-      <div className="grid">
-        {Array.from({ length: 37 }).map((_, i) => (
-          <div 
-            key={i} 
-            className="header-cell"
-            style={{ gridColumn: i + 1 }}
-          >
-            {weekdays[i % 7]}
-          </div>
-        ))}
+      <div className="grid" style={{ gridTemplateColumns: `repeat(${count}, var(--cell-w))` }}>
+        {Array.from({ length: 37 }).map((_, i) => {
+          const col = i + 1;
+          if (col < start || col > end) return null;
+          return (
+            <div 
+              key={i} 
+              className="header-cell"
+              style={{ gridColumn: col - start + 1 }}
+            >
+              {weekdays[i % 7]}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -132,19 +169,23 @@ function CalendarLegend() {
   );
 }
 
-function MonthRow({ month, year }: { month: number, year: number }) {
+function MonthRow({ month, year, start, end }: { month: number, year: number, start: number, end: number }) {
   const name = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(new Date(year, month));
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const firstDayOffset = new Date(year, month, 1).getDay();
+  const count = end - start + 1;
 
   return (
     <div className="month-row">
       <div className="month-label">{name}</div>
-      <div className="grid">
+      <div className="grid" style={{ gridTemplateColumns: `repeat(${count}, var(--cell-w))` }}>
         {Array.from({ length: daysInMonth }).map((_, i) => {
           const d = new Date(year, month, i + 1);
           const col = firstDayOffset + i + 1;
-          return <DayCell key={i} date={d} col={col} />;
+          
+          if (col < start || col > end) return null;
+          
+          return <DayCell key={i} date={d} col={col - start + 1} />;
         })}
       </div>
     </div>

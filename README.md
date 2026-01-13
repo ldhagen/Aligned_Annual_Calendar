@@ -13,12 +13,13 @@ A high-performance, React-based web application designed for creating landscape-
 ## ✨ Features
 
 * **Vertical Weekday Alignment**: Every Monday aligns in the exact same vertical track across all 12 months, creating a "staircase" effect that makes identifying weekends and patterns effortless.
+* **Flexible Print Layouts**: Toggle between **Single Page (Landscape)** or **2-Page Split (Portrait)** modes. The application automatically adjusts the print settings, allowing you to print a seamless wall calendar on two standard sheets of paper.
 * **Free-Text Stamp Tool**: Type any label (e.g., "Holiday", "Deadline", "Vacation") in the toolbar and double-click any day cell to "stamp" that text instantly.
-* **Dynamic Print Legend**: The application automatically generates a color-coded legend at the bottom of the page based on the labels and colors you use, ensuring your printed calendar is fully readable without digital tooltips.
-* **Hover Tooltips**: In the digital view, hover over any cell to see the full text content, which is useful for longer notes that may be truncated in the grid.
-* **Persistent Customization**: Your data is automatically saved to browser `LocalStorage`, so your progress is never lost between sessions.
-* **Data Portability**: Complete **💾 Export** and **📂 Import** functionality via JSON files allows you to back up your data or move it between devices.
-* **Print Optimized**: High-fidelity landscape printing with a specialized CSS media query that removes the UI and scales the calendar perfectly for A4/Letter paper.
+* **Dynamic Print Legend**: The application automatically generates a color-coded legend at the bottom of the page based on the labels and colors you use.
+* **Hover Tooltips**: In the digital view, hover over any cell to see the full text content.
+* **Persistent Customization**: Your data is automatically saved to browser `LocalStorage`.
+* **Data Portability**: Complete **💾 Export** and **📂 Import** functionality via JSON files.
+* **Print Optimized**: High-fidelity CSS removes the UI and scales the calendar perfectly for A4/Letter paper in either orientation.
 
 ---
 

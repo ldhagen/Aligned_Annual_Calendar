@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:saconsumer": "tsc && vite build --config vite.config.saconsumer.ts && mv dist/index.html dist/calendar-core.php",
+    "deploy": "npm run build:saconsumer && rm -rf deploy && mkdir deploy && cp claim_work/*.php claim_work/*.txt claim_work/*.ico deploy/ && cp -r dist/* deploy/",
     "preview": "vite preview"
   },
   "keywords": [],

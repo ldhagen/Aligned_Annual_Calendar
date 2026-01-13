@@ -53,6 +53,29 @@ services:
 
 ---
 
+## 🌐 Production Deployment (saconsumer.com)
+
+The project includes an automated workflow to package the calendar for deployment to `saconsumer.com/calendar`.
+
+### Automated Build & Package
+
+Run the following command to generate a `deploy/` folder containing both the React application and the PHP access control system:
+
+```bash
+npm run deploy
+```
+
+This command will:
+1.  Compile the React app with the correct base path (`/calendar/`).
+2.  Rename the entry point to `calendar-core.php`.
+3.  Gather all necessary PHP scripts (`index.php`, `claim.php`) and key files into the `deploy/` directory.
+
+### Manual Upload
+
+Upload the entire contents of the **`deploy/`** folder to your server's `/calendar/` directory via FTP or your host's file manager.
+
+---
+
 ## 🚀 Local Development
 
 ### Prerequisites
